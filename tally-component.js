@@ -1,10 +1,20 @@
+//@ts-check
 import { LitElement, html, css } from "./lib/lit.js";
 
-const states = {
+/**
+ * @typedef {Object} States
+ * @property {string} IDLE
+ * @property {string} MAX
+ * @property {string} MIN
+ */
+
+const States = {
   IDLE: "Idle",
   MAX: "Max reached",
   MIN: "Min reached",
 };
+
+Object.freeze(States);
 
 class Hello extends LitElement {
   static styles = css`
@@ -185,7 +195,7 @@ class Hello extends LitElement {
     this.open = false;
     this.depleted = -30;
     this.exceeded = 30;
-    this.state = states.IDLE;
+    this.state = States.IDLE;
   }
 
   toggleOpen() {
@@ -196,8 +206,8 @@ class Hello extends LitElement {
     let num = parseInt(this.value);
     num--;
     num === this.depleted
-      ? (this.state = states.MIN)
-      : (this.state = states.IDLE);
+      ? (this.state = States.MIN)
+      : (this.state = States.IDLE);
     this.value = num.toString();
   };
 
@@ -205,23 +215,26 @@ class Hello extends LitElement {
     let num = parseInt(this.value);
     num++;
     num === this.exceeded
-      ? (this.state = states.MAX)
-      : (this.state = states.IDLE);
+      ? (this.state = States.MAX)
+      : (this.state = States.IDLE);
     this.value = num.toString();
   };
 
   resetHandler = () => {
-    if (this.value == 0) {
+    if (this.value === "0") {
       return;
     }
-    this.state = states.IDLE;
+    this.state = States.IDLE;
     this.value = "0";
     this.toggleOpen();
     setTimeout(() => {
       this.toggleOpen();
     }, 1500);
   };
-
+  /**
+   *
+   * @returns {any}
+   */
   render() {
     return html` <section>
       <header class="header">
@@ -242,7 +255,7 @@ class Hello extends LitElement {
         />
         <div class="counter__actions">
           <sl-button
-            ?disabled=${this.state === states.MIN}
+            ?disabled=${this.state === States.MIN}
             @click=${this.subHandler}
             class="button subtract"
             pill
@@ -253,7 +266,7 @@ class Hello extends LitElement {
             >Reset</sl-button
           >
           <sl-button
-            ?disabled=${this.state === states.MAX}
+            ?disabled=${this.state === States.MAX}
             @click=${this.addHandler}
             class="button add"
             pill
