@@ -220,9 +220,6 @@ class Hello extends LitElement {
   };
 
   resetHandler = () => {
-    if (this.value === "0") {
-      return;
-    }
     this.state = States.IDLE;
     this.value = "0";
     this.toggleOpen();
@@ -260,7 +257,7 @@ class Hello extends LitElement {
             data-subtract
             >-</sl-button
           >
-          <sl-button @click=${this.resetHandler} class="reset" pill data-reset
+          <sl-button ?disabled=${this.value === '0'} @click=${this.resetHandler} class="reset" pill data-reset
             >Reset</sl-button
           >
           <sl-button
