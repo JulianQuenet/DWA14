@@ -7,7 +7,6 @@ import { LitElement, html, css } from "./lib/lit.js";
  * @property {string} MAX
  * @property {string} MIN
  */
-
 const States = {
   IDLE: "Idle",
   MAX: "Max reached",
@@ -240,7 +239,6 @@ class Hello extends LitElement {
       <header class="header">
         <h1 class="header__title">Tally Count</h1>
         <p>State:${this.state}</p>
-        <p></p>
       </header>
 
       <main class="counter">
