@@ -280,4 +280,4 @@ class Hello extends LitElement {
   }
 }
 
-window.customElements.define("tally-app", Hello);
+customElements.define("tally-app", Hello);
